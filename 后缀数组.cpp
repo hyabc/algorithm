@@ -26,7 +26,8 @@ int main() {
 	for (int i = 2;i <= n;i++) 
 		rank[sa[i]] = (st[sa[i]] == st[sa[i - 1]])  ?  rank[sa[i - 1]]  :  rank[sa[i - 1]] + 1;
 
-	for (int i = 0;(1 << i) <= n;i++) {
+	//重要的优化！当每个后缀分到的rank互不相等时，停止。否则会tle！
+	for (int i = 0;/*(1 << i) <= n*/rank[sa[n]] < n;i++) {
 		for (int j = 1;j <= n;j++) {
 			msb[j] = rank[j];
 			lsb[j] = (j + (1 << i)) <= n  ?  rank[j + (1 << i)]  :  0;
